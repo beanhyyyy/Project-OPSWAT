@@ -19,19 +19,19 @@ export default function useThemeOpswat() {
             styleOverrides: {
               root: () => ({
                 borderRadius: 4,
-                borderColor: "#0ac46b",
+                borderColor: "#1D9BF0",
                 "& label.Mui-focused": {
-                  color: "#0ac46b",
+                  color: "#1D9BF0",
                 },
                 "& .MuiInput-underline:after": {
-                  borderBottomColor: "#0ac46b",
+                  borderBottomColor: "#1D9BF0",
                 },
                 "& .MuiOutlinedInput-root": {
                   "&:hover fieldset": {
-                    borderColor: "#0ac46b",
+                    borderColor: "#1D9BF0",
                   },
                   "&.Mui-focused fieldset": {
-                    borderColor: "#0ac46b",
+                    borderColor: "#1D9BF0",
                   },
                 },
               }),
@@ -70,7 +70,7 @@ export default function useThemeOpswat() {
         palette: {
           mode: "light", // dark || light
           primary: {
-            main: "#3F89DF",
+            main: "#1D9BF0",
             contrastText: "#fff",
           },
           secondary:{

@@ -4,6 +4,8 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 
 import _map from "lodash/map";
 
+import LoginPageContainer from "./containers/LoginPageContainer";
+
 interface RouteProps {
   path: string;
   component: React.ReactNode;
@@ -13,8 +15,8 @@ interface RouteProps {
 export default function App() {
   const pageRoutes = [
     {
-      path: "/login",
-      component: <>Login</>,
+      path: ["/", "/login"],
+      component: <LoginPageContainer />,
       exact: true,
     },
     {
