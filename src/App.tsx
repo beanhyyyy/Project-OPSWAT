@@ -5,6 +5,7 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import _map from "lodash/map";
 
 import LoginPageContainer from "./containers/LoginPageContainer";
+import ArticlesPageContainer from "./containers/ArticlesPageContainer";
 
 interface RouteProps {
   path: string;
@@ -29,7 +30,7 @@ export default function App() {
     },
     {
       path: "/dashboard/articles",
-      component: <>/dashboard/articles</>,
+      component: <ArticlesPageContainer />,
     },
     {
       path: "*",
