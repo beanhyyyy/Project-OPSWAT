@@ -1,12 +1,13 @@
 import React from "react";
 
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 
 import _map from "lodash/map";
 
 interface RouteProps {
   path: string;
   component: React.ReactNode;
+  exact?: boolean;
 }
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
     {
       path: "/login",
       component: <>Login</>,
+      exact: true,
     },
     {
       path: "/register",
@@ -28,7 +30,7 @@ export default function App() {
       component: <>/dashboard/articles</>,
     },
     {
-      path: "/404",
+      path: "*",
       component: <>Page not found</>,
     },
   ];
@@ -38,7 +40,7 @@ export default function App() {
       <BrowserRouter>
         <Switch>
           {_map(pageRoutes, (route: RouteProps, idx: any) => (
-            <Route key={idx.toString()} path={route.path}>
+            <Route key={idx.toString()} path={route.path} exact={route.exact}>
               {route.component}
             </Route>
           ))}
