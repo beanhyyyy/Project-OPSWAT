@@ -126,6 +126,7 @@ const articlesReducer = (state = initialState, action: ArticlesActions) =>
         draft.isDeleteLoading = false;
         draft.isDeleteSuccess = false;
         draft.isDeleteFail = false;
+        draft.errorDelete = null;
         break;
     }
   });

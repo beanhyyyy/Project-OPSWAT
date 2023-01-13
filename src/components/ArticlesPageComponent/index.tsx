@@ -37,6 +37,7 @@ interface Props {
   handleDeleteArticle: (params: IArticles) => void;
   isDeleteFail: boolean;
   errorDelete: boolean;
+  handleResetDeleteArticle: () => void;
 }
 
 const ArticlesPageComponent: FC<Props> = ({
@@ -53,6 +54,7 @@ const ArticlesPageComponent: FC<Props> = ({
   handleDeleteArticle,
   isDeleteFail,
   errorDelete,
+  handleResetDeleteArticle,
 }) => {
   const [openUpdate, setOpenUpdate] = useState("");
   const [itemData, setItemData] = useState();
@@ -60,7 +62,9 @@ const ArticlesPageComponent: FC<Props> = ({
   useEffect(() => {
     if (isDeleteFail) {
       alert(errorDelete);
+      handleResetDeleteArticle();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDeleteFail]);
   return (
     <>
