@@ -1,10 +1,13 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-import { makeSelectTodo } from "../../store/todo/selectors";
-import { fetchTodoRequest } from "../../store/todo/actions";
+import { makeSelectLogin } from "../../store/login/selectors";
+import { fetchLoginRequest, fetchLoginReset } from "../../store/login/actions";
 
 import LoginPageComponent from "../../components/LoginPageComponent";
+import { ILogin } from "../../store/login/types";
+import { articlesPageURL } from "../../contants";
 
 interface Props {
   children?: React.ReactNode;
@@ -12,16 +15,31 @@ interface Props {
 
 const LoginPageContainer: FC<Props> = ({ children }) => {
   const dispatch = useDispatch();
-  const todo = useSelector(makeSelectTodo());
-  const { isLoading } = todo;
+  let history = useHistory();
+
+  const login = useSelector(makeSelectLogin());
+  const { isLoading, error, isFail, isSuccess } = login;
 
   useEffect(() => {
-    if (!isLoading) {
-      dispatch(fetchTodoRequest());
+    if (isSuccess) {
+      dispatch(fetchLoginReset());
+      history.push(articlesPageURL);
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
-  return <LoginPageComponent />;
+  const handleLoginRequest = (params: ILogin) => {
+    dispatch(fetchLoginRequest(params));
+  };
+
+  return (
+    <LoginPageComponent
+      handleLoginRequest={handleLoginRequest}
+      isLoading={isLoading}
+      error={error}
+      isFail={isFail}
+    />
+  );
 };
 
 export default LoginPageContainer;

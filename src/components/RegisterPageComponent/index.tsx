@@ -25,6 +25,7 @@ import * as yup from "yup";
 import md5 from 'md5';
 
 import { IRegister } from "../../store/register/types";
+import { loginPageURL } from "../../contants";
 
 interface Props {
   children?: React.ReactNode;
@@ -283,7 +284,7 @@ const RegisterPageComponent: FC<Props> = ({
                     cursor: "pointer",
                   },
                 }}
-                onClick={() => history.push("/login")}
+                onClick={() => history.push(loginPageURL)}
               >
                 Đăng nhập.
               </Typography>
