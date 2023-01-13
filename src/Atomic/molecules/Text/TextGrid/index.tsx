@@ -6,7 +6,7 @@ import Typography from "../../../atoms/Typography";
 
 interface Props {
   label: any; // nhãn
-  value: any; // giá trị
+  value?: any; // giá trị
   containerProps?: object; // tùy chỉnh container
   labelColProps?: object; // tùy chỉnh cột label
   valueColProps?: object; // tùy chỉnh cột giá trị
