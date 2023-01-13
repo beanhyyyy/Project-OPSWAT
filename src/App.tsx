@@ -6,6 +6,7 @@ import _map from "lodash/map";
 
 import LoginPageContainer from "./containers/LoginPageContainer";
 import ArticlesPageContainer from "./containers/ArticlesPageContainer";
+import RegisterPageComponent from "./components/RegisterPageComponent";
 
 interface RouteProps {
   path: string;
@@ -22,7 +23,7 @@ export default function App() {
     },
     {
       path: "/register",
-      component: <>register</>,
+      component: <RegisterPageComponent />,
     },
     {
       path: "/dashboard/user",
