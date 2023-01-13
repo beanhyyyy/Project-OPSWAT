@@ -11,6 +11,10 @@ import {
   FETCH_EDIT_ARTICLES_FAILURE,
   FETCH_EDIT_ARTICLES_SUCCESS,
   FETCH_EDIT_ARTICLES_RESET,
+  FETCH_DELETE_ARTICLES_REQUEST,
+  FETCH_DELETE_ARTICLES_FAILURE,
+  FETCH_DELETE_ARTICLES_SUCCESS,
+  FETCH_DELETE_ARTICLES_RESET,
 } from "./actionTypes";
 
 export interface IAuthor {
@@ -43,6 +47,10 @@ export interface ArticlesState {
   isPostSuccess: boolean;
   isPostFail: boolean;
   errorPost: string | null;
+  isDeleteLoading: boolean;
+  isDeleteFail: boolean;
+  isDeleteSuccess: boolean;
+  errorDelete: string | null;
 }
 
 export interface FetchArticlesSuccessPayload {
@@ -127,6 +135,34 @@ export type FetchEditArticlesReset = {
   type: typeof FETCH_EDIT_ARTICLES_RESET;
 };
 
+// DELETE
+export interface FetchDeleteArticlesSuccessPayload {
+  data: IArticles;
+}
+
+export interface FetchDeleteArticlesFailurePayload {
+  error: string;
+}
+
+export interface FetchDeleteArticlesRequest {
+  type: typeof FETCH_DELETE_ARTICLES_REQUEST;
+  params: IArticles;
+}
+
+export type FetchDeleteArticlesSuccess = {
+  type: typeof FETCH_DELETE_ARTICLES_SUCCESS;
+  payload: FetchDeleteArticlesSuccessPayload;
+};
+
+export type FetchDeleteArticlesFailure = {
+  type: typeof FETCH_DELETE_ARTICLES_FAILURE;
+  payload: FetchDeleteArticlesFailurePayload;
+};
+
+export type FetchDeleteArticlesReset = {
+  type: typeof FETCH_DELETE_ARTICLES_RESET;
+};
+
 export type ArticlesActions =
   | FetchArticlesRequest
   | FetchArticlesSuccess
@@ -139,4 +175,8 @@ export type ArticlesActions =
   | FetchEditArticlesRequest
   | FetchEditArticlesSuccess
   | FetchEditArticlesFailure
-  | FetchEditArticlesReset;
+  | FetchEditArticlesReset
+  | FetchDeleteArticlesRequest
+  | FetchDeleteArticlesSuccess
+  | FetchDeleteArticlesFailure
+  | FetchDeleteArticlesReset;

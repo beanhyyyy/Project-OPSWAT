@@ -7,6 +7,7 @@ import {
   fetchCreateArticlesRequest,
   fetchCreateArticlesReset,
   fetchEditArticlesRequest,
+  fetchDeleteArticlesRequest
 } from "../../store/articles/actions";
 
 import ArticlesPageComponent from "../../components/ArticlesPageComponent";
@@ -30,6 +31,8 @@ const ArticlesPageContainer: FC<Props> = ({ children }) => {
     isPostLoading,
     isPostFail,
     errorPost,
+    isDeleteFail,
+    errorDelete,
   } = articles;
 
   const handleCreateArticle = (params: IArticles) => {
@@ -38,6 +41,10 @@ const ArticlesPageContainer: FC<Props> = ({ children }) => {
 
   const handleEditArticle = (params: IArticles) => {
     dispatch(fetchEditArticlesRequest(params));
+  };
+
+  const handleDeleteArticle = (params: IArticles) => {
+    dispatch(fetchDeleteArticlesRequest(params));
   };
 
   const handleResetArticle = () => {
@@ -65,6 +72,9 @@ const ArticlesPageContainer: FC<Props> = ({ children }) => {
             errorPost={errorPost}
             handleResetArticle={handleResetArticle}
             handleEditArticle={handleEditArticle}
+            handleDeleteArticle={handleDeleteArticle}
+            isDeleteFail={isDeleteFail}
+            errorDelete={errorDelete}
           />
         }
         appbar={<Appbar />}

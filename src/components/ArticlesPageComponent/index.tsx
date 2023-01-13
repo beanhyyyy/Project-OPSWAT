@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 
 import _size from "lodash/size";
 import _map from "lodash/map";
@@ -34,6 +34,9 @@ interface Props {
   handleCreateArticle: (params: IArticles) => void;
   handleResetArticle: () => void;
   handleEditArticle: (params: IArticles) => void;
+  handleDeleteArticle: (params: IArticles) => void;
+  isDeleteFail: boolean;
+  errorDelete: boolean;
 }
 
 const ArticlesPageComponent: FC<Props> = ({
@@ -47,10 +50,18 @@ const ArticlesPageComponent: FC<Props> = ({
   errorPost,
   handleResetArticle,
   handleEditArticle,
+  handleDeleteArticle,
+  isDeleteFail,
+  errorDelete,
 }) => {
   const [openUpdate, setOpenUpdate] = useState("");
   const [itemData, setItemData] = useState();
 
+  useEffect(() => {
+    if (isDeleteFail) {
+      alert(errorDelete);
+    }
+  }, [isDeleteFail]);
   return (
     <>
       <Grid
@@ -160,6 +171,7 @@ const ArticlesPageComponent: FC<Props> = ({
                               color="secondary"
                               variant="outlined"
                               size="small"
+                              onClick={() => handleDeleteArticle(item.id)}
                             >
                               Xóa
                             </Button>

@@ -11,6 +11,10 @@ import {
   FETCH_EDIT_ARTICLES_FAILURE,
   FETCH_EDIT_ARTICLES_SUCCESS,
   FETCH_EDIT_ARTICLES_RESET,
+  FETCH_DELETE_ARTICLES_REQUEST,
+  FETCH_DELETE_ARTICLES_FAILURE,
+  FETCH_DELETE_ARTICLES_SUCCESS,
+  FETCH_DELETE_ARTICLES_RESET,
 } from "./actionTypes";
 import {
   FetchArticlesRequest,
@@ -32,6 +36,12 @@ import {
   FetchEditArticlesFailure,
   FetchEditArticlesFailurePayload,
   FetchEditArticlesReset,
+  FetchDeleteArticlesRequest,
+  FetchDeleteArticlesSuccess,
+  FetchDeleteArticlesSuccessPayload,
+  FetchDeleteArticlesFailure,
+  FetchDeleteArticlesFailurePayload,
+  FetchDeleteArticlesReset,
 } from "./types";
 
 export const fetchArticlesRequest = (): FetchArticlesRequest => ({
@@ -106,4 +116,30 @@ export const fetchEditArticlesFailure = (
 
 export const fetchEditArticlesReset = (): FetchEditArticlesReset => ({
   type: FETCH_EDIT_ARTICLES_RESET,
+});
+
+// DELETE
+export const fetchDeleteArticlesRequest = (
+  params: IArticles
+): FetchDeleteArticlesRequest => ({
+  type: FETCH_DELETE_ARTICLES_REQUEST,
+  params,
+});
+
+export const fetchDeleteArticlesSuccess = (
+  payload: FetchDeleteArticlesSuccessPayload
+): FetchDeleteArticlesSuccess => ({
+  type: FETCH_DELETE_ARTICLES_SUCCESS,
+  payload,
+});
+
+export const fetchDeleteArticlesFailure = (
+  payload: FetchDeleteArticlesFailurePayload
+): FetchDeleteArticlesFailure => ({
+  type: FETCH_DELETE_ARTICLES_FAILURE,
+  payload,
+});
+
+export const fetchDeleteArticlesReset = (): FetchDeleteArticlesReset => ({
+  type: FETCH_DELETE_ARTICLES_RESET,
 });

@@ -13,6 +13,10 @@ import {
   FETCH_EDIT_ARTICLES_FAILURE,
   FETCH_EDIT_ARTICLES_SUCCESS,
   FETCH_EDIT_ARTICLES_RESET,
+  FETCH_DELETE_ARTICLES_REQUEST,
+  FETCH_DELETE_ARTICLES_FAILURE,
+  FETCH_DELETE_ARTICLES_SUCCESS,
+  FETCH_DELETE_ARTICLES_RESET,
 } from "./actionTypes";
 
 import { ArticlesActions, ArticlesState } from "./types";
@@ -27,6 +31,10 @@ export const initialState: ArticlesState = {
   isPostSuccess: false,
   isPostFail: false,
   errorPost: null,
+  isDeleteLoading: false,
+  isDeleteFail: false,
+  isDeleteSuccess: false,
+  errorDelete: null,
 };
 
 const articlesReducer = (state = initialState, action: ArticlesActions) =>
@@ -98,6 +106,26 @@ const articlesReducer = (state = initialState, action: ArticlesActions) =>
         draft.isPostSuccess = false;
         draft.isPostFail = false;
         draft.errorPost = null;
+        break;
+
+      case FETCH_DELETE_ARTICLES_REQUEST:
+        draft.isDeleteLoading = true;
+        draft.isDeleteSuccess = false;
+        draft.isDeleteFail = false;
+        break;
+      case FETCH_DELETE_ARTICLES_SUCCESS:
+        draft.isDeleteSuccess = true;
+        draft.isDeleteLoading = false;
+        break;
+      case FETCH_DELETE_ARTICLES_FAILURE:
+        draft.isDeleteLoading = false;
+        draft.isDeleteFail = true;
+        draft.errorDelete = action.payload.error;
+        break;
+      case FETCH_DELETE_ARTICLES_RESET:
+        draft.isDeleteLoading = false;
+        draft.isDeleteSuccess = false;
+        draft.isDeleteFail = false;
         break;
     }
   });

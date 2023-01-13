@@ -8,15 +8,19 @@ import {
   fetchCreateArticlesSuccess,
   fetchEditArticlesFailure,
   fetchEditArticlesSuccess,
+  fetchDeleteArticlesFailure,
+  fetchDeleteArticlesSuccess,
 } from "./actions";
 import {
   FETCH_ARTICLES_REQUEST,
   FETCH_CREATE_ARTICLES_REQUEST,
   FETCH_EDIT_ARTICLES_REQUEST,
+  FETCH_DELETE_ARTICLES_REQUEST,
 } from "./actionTypes";
 import {
   FetchCreateArticlesRequest,
   FetchEditArticlesRequest,
+  FetchDeleteArticlesRequest,
   IArticles,
 } from "./types";
 
@@ -49,10 +53,10 @@ function* fetchArticlesSaga(): any {
 */
 function* fetchCreateArticlesSaga(action: FetchCreateArticlesRequest): any {
   try {
-    const postLogins = () =>
+    const postCreate = () =>
       axios.post<IArticles[]>(`${API}/api/articles`, action.params);
 
-    const response = yield call(postLogins);
+    const response = yield call(postCreate);
 
     yield put(
       fetchCreateArticlesSuccess({
@@ -73,13 +77,13 @@ function* fetchCreateArticlesSaga(action: FetchCreateArticlesRequest): any {
 */
 function* fetchEditArticlesSaga(action: FetchEditArticlesRequest): any {
   try {
-    const postLogins = () =>
+    const postEdit = () =>
       axios.put<IArticles[]>(
         `${API}/api/articles/${action.params.id}`,
         action.params
       );
 
-    const response = yield call(postLogins);
+    const response = yield call(postEdit);
 
     yield put(
       fetchEditArticlesSuccess({
@@ -96,6 +100,30 @@ function* fetchEditArticlesSaga(action: FetchEditArticlesRequest): any {
 }
 
 /*
+  Worker Saga: DELETE
+*/
+function* fetchDeleteArticlesSaga(action: FetchDeleteArticlesRequest): any {
+  try {
+    const postDelete = () =>
+      axios.put<IArticles[]>(`${API}/api/articles/${action.params}`);
+
+    const response = yield call(postDelete);
+
+    yield put(
+      fetchDeleteArticlesSuccess({
+        data: response.data,
+      })
+    );
+  } catch (e: any) {
+    yield put(
+      fetchDeleteArticlesFailure({
+        error: e.response.data.message || e.message,
+      })
+    );
+  }
+}
+
+/*
   Starts worker saga on latest dispatched `FETCH_ARTICLES_REQUEST` action.
   Allows concurrent increments.
 */
@@ -104,6 +132,7 @@ function* articlesSaga() {
     takeLatest(FETCH_ARTICLES_REQUEST, fetchArticlesSaga),
     takeLatest(FETCH_CREATE_ARTICLES_REQUEST, fetchCreateArticlesSaga),
     takeLatest(FETCH_EDIT_ARTICLES_REQUEST, fetchEditArticlesSaga),
+    takeLatest(FETCH_DELETE_ARTICLES_REQUEST, fetchDeleteArticlesSaga),
   ]);
 }
 
