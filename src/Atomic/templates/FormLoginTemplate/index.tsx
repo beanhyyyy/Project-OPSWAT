@@ -14,7 +14,7 @@ interface Props {
 const FormLoginTemplate: FC<Props> = ({ children }) => {
   return (
     <BackgroundPage
-      background={backgroundImage}
+      background='https://newsfeed-cdn.hahalolo.com/shared/assets/img/banner/banner-hahalolo-app-v2.jpg'
       customStyles={{ minHeight: "100vh" }}
     >
       <Box
