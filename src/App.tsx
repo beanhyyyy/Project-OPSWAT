@@ -7,6 +7,8 @@ import _map from "lodash/map";
 import LoginPageContainer from "./containers/LoginPageContainer";
 import ArticlesPageContainer from "./containers/ArticlesPageContainer";
 import RegisterPageContainer from "./containers/RegisterPageContainer";
+import { articlesPageURL, loginPageURL, registerPageURL, userPageURL } from "./contants";
+import UserPageContainer from "./containers/UserPageContainer";
 
 interface RouteProps {
   path: string;
@@ -17,20 +19,20 @@ interface RouteProps {
 export default function App() {
   const pageRoutes = [
     {
-      path: ["/", "/login"],
+      path: ["/", loginPageURL],
       component: <LoginPageContainer />,
       exact: true,
     },
     {
-      path: "/register",
+      path: registerPageURL,
       component: <RegisterPageContainer />,
     },
     {
-      path: "/dashboard/user",
-      component: <>dashboard/user</>,
+      path: userPageURL,
+      component: <UserPageContainer />,
     },
     {
-      path: "/dashboard/articles",
+      path: articlesPageURL,
       component: <ArticlesPageContainer />,
     },
     {

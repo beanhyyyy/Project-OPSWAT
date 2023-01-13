@@ -2,13 +2,35 @@ import {
   FETCH_ARTICLES_REQUEST,
   FETCH_ARTICLES_SUCCESS,
   FETCH_ARTICLES_FAILURE,
+  FETCH_ARTICLES_RESET,
+  FETCH_CREATE_ARTICLES_REQUEST,
+  FETCH_CREATE_ARTICLES_FAILURE,
+  FETCH_CREATE_ARTICLES_SUCCESS,
+  FETCH_CREATE_ARTICLES_RESET,
+  FETCH_EDIT_ARTICLES_REQUEST,
+  FETCH_EDIT_ARTICLES_FAILURE,
+  FETCH_EDIT_ARTICLES_SUCCESS,
+  FETCH_EDIT_ARTICLES_RESET,
 } from "./actionTypes";
 
-export interface IArticles {
-  userId: number;
+export interface IAuthor {
+  bio: string;
+  email: string;
   id: number;
-  title: string;
-  completed: boolean;
+  image: string;
+  username: string;
+}
+
+export interface IArticles {
+  body?: string;
+  created?: number;
+  description?: string;
+  favoriteCount?: number;
+  id?: number;
+  slug?: string;
+  title?: string;
+  tagList?: any;
+  updated?: number;
 }
 
 export interface ArticlesState {
@@ -17,6 +39,10 @@ export interface ArticlesState {
   isFail: boolean;
   data: IArticles[];
   error: string | null;
+  isPostLoading: boolean;
+  isPostSuccess: boolean;
+  isPostFail: boolean;
+  errorPost: string | null;
 }
 
 export interface FetchArticlesSuccessPayload {
@@ -41,7 +67,76 @@ export type FetchArticlesFailure = {
   payload: FetchArticlesFailurePayload;
 };
 
+export type FetchArticlesReset = {
+  type: typeof FETCH_ARTICLES_RESET;
+};
+
+// CREATE
+export interface FetchCreateArticlesSuccessPayload {
+  data: IArticles;
+}
+
+export interface FetchCreateArticlesFailurePayload {
+  error: string;
+}
+
+export interface FetchCreateArticlesRequest {
+  type: typeof FETCH_CREATE_ARTICLES_REQUEST;
+  params: IArticles;
+}
+
+export type FetchCreateArticlesSuccess = {
+  type: typeof FETCH_CREATE_ARTICLES_SUCCESS;
+  payload: FetchCreateArticlesSuccessPayload;
+};
+
+export type FetchCreateArticlesFailure = {
+  type: typeof FETCH_CREATE_ARTICLES_FAILURE;
+  payload: FetchCreateArticlesFailurePayload;
+};
+
+export type FetchCreateArticlesReset = {
+  type: typeof FETCH_CREATE_ARTICLES_RESET;
+};
+
+// EDIT
+export interface FetchEditArticlesSuccessPayload {
+  data: IArticles;
+}
+
+export interface FetchEditArticlesFailurePayload {
+  error: string;
+}
+
+export interface FetchEditArticlesRequest {
+  type: typeof FETCH_EDIT_ARTICLES_REQUEST;
+  params: IArticles;
+}
+
+export type FetchEditArticlesSuccess = {
+  type: typeof FETCH_EDIT_ARTICLES_SUCCESS;
+  payload: FetchEditArticlesSuccessPayload;
+};
+
+export type FetchEditArticlesFailure = {
+  type: typeof FETCH_EDIT_ARTICLES_FAILURE;
+  payload: FetchEditArticlesFailurePayload;
+};
+
+export type FetchEditArticlesReset = {
+  type: typeof FETCH_EDIT_ARTICLES_RESET;
+};
+
 export type ArticlesActions =
   | FetchArticlesRequest
   | FetchArticlesSuccess
-  | FetchArticlesFailure;
+  | FetchArticlesFailure
+  | FetchArticlesReset
+  | FetchCreateArticlesRequest
+  | FetchCreateArticlesSuccess
+  | FetchCreateArticlesFailure
+  | FetchCreateArticlesReset
+  | FetchEditArticlesRequest
+  | FetchEditArticlesSuccess
+  | FetchEditArticlesFailure
+  | FetchEditArticlesReset;

@@ -4,6 +4,15 @@ import {
   FETCH_ARTICLES_REQUEST,
   FETCH_ARTICLES_SUCCESS,
   FETCH_ARTICLES_FAILURE,
+  FETCH_ARTICLES_RESET,
+  FETCH_CREATE_ARTICLES_REQUEST,
+  FETCH_CREATE_ARTICLES_FAILURE,
+  FETCH_CREATE_ARTICLES_SUCCESS,
+  FETCH_CREATE_ARTICLES_RESET,
+  FETCH_EDIT_ARTICLES_REQUEST,
+  FETCH_EDIT_ARTICLES_FAILURE,
+  FETCH_EDIT_ARTICLES_SUCCESS,
+  FETCH_EDIT_ARTICLES_RESET,
 } from "./actionTypes";
 
 import { ArticlesActions, ArticlesState } from "./types";
@@ -14,6 +23,10 @@ export const initialState: ArticlesState = {
   isSuccess: false,
   isFail: false,
   error: null,
+  isPostLoading: false,
+  isPostSuccess: false,
+  isPostFail: false,
+  errorPost: null,
 };
 
 const articlesReducer = (state = initialState, action: ArticlesActions) =>
@@ -21,6 +34,9 @@ const articlesReducer = (state = initialState, action: ArticlesActions) =>
     switch (action.type) {
       case FETCH_ARTICLES_REQUEST:
         draft.isLoading = true;
+        draft.error = null;
+        draft.isSuccess = false;
+        draft.isFail = false;
         break;
       case FETCH_ARTICLES_SUCCESS:
         draft.isSuccess = true;
@@ -30,6 +46,58 @@ const articlesReducer = (state = initialState, action: ArticlesActions) =>
       case FETCH_ARTICLES_FAILURE:
         draft.isLoading = false;
         draft.isFail = true;
+        draft.error = action.payload.error;
+        break;
+      case FETCH_ARTICLES_RESET:
+        draft.data = [];
+        draft.isLoading = false;
+        draft.isSuccess = false;
+        draft.isFail = false;
+        draft.error = null;
+        break;
+
+      case FETCH_CREATE_ARTICLES_REQUEST:
+        draft.isPostLoading = true;
+        draft.isPostSuccess = false;
+        draft.isPostFail = false;
+        draft.errorPost = null;
+        break;
+      case FETCH_CREATE_ARTICLES_SUCCESS:
+        draft.isPostSuccess = true;
+        draft.isPostLoading = false;
+        break;
+      case FETCH_CREATE_ARTICLES_FAILURE:
+        draft.isPostLoading = false;
+        draft.isPostFail = true;
+        draft.errorPost = action.payload.error;
+        break;
+      case FETCH_CREATE_ARTICLES_RESET:
+        draft.isPostLoading = false;
+        draft.isPostSuccess = false;
+        draft.isPostFail = false;
+        draft.errorPost = null;
+        break;
+
+      case FETCH_EDIT_ARTICLES_REQUEST:
+        draft.isPostLoading = true;
+        draft.isPostSuccess = false;
+        draft.isPostFail = false;
+        draft.errorPost = null;
+        break;
+      case FETCH_EDIT_ARTICLES_SUCCESS:
+        draft.isPostSuccess = true;
+        draft.isPostLoading = false;
+        break;
+      case FETCH_EDIT_ARTICLES_FAILURE:
+        draft.isPostLoading = false;
+        draft.isPostFail = true;
+        draft.errorPost = action.payload.error;
+        break;
+      case FETCH_EDIT_ARTICLES_RESET:
+        draft.isPostLoading = false;
+        draft.isPostSuccess = false;
+        draft.isPostFail = false;
+        draft.errorPost = null;
         break;
     }
   });

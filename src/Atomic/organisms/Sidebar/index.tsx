@@ -1,21 +1,29 @@
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
+
+import _includes from 'lodash/includes';
+
+import { useHistory, useLocation } from "react-router-dom";
 
 import ListItem from "../../atoms/ListItem";
 import List from "../../atoms/List";
+import { articlesPageURL, userPageURL } from "../../../contants";
 
 interface Props {
   children?: React.ReactNode;
 }
 
 const Sidebar: FC<Props> = ({ children }) => {
+  let history = useHistory();
+  let location = useLocation();
+  let pathname = location.pathname;
+
   const pageArray = [
     {
-      path: "/dashboard/user",
+      path: userPageURL,
       name: "User",
     },
     {
-      path: "/dashboard/articles",
+      path: articlesPageURL,
       name: "Articles",
     },
   ];
@@ -24,15 +32,15 @@ const Sidebar: FC<Props> = ({ children }) => {
     <>
       <List>
         {pageArray.map((item) => (
-          <Link
-            to={item.path}
-            style={{ textDecoration: "none" }}
+          <ListItem
             key={item.name}
+            button
+            sx={{ color: "inherit" }}
+            onClick={() => history.push(item.path)}
+            selected={!!_includes(item.path, pathname)}
           >
-            <ListItem button sx={{ color: "inherit" }}>
-              {item.name}
-            </ListItem>
-          </Link>
+            {item.name}
+          </ListItem>
         ))}
       </List>
     </>
